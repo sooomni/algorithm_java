@@ -7,45 +7,31 @@ import java.util.StringTokenizer;
 public class Main {
 
 	private static int n;
-	private static int [] city;
-	private static int [] bridge;
+	private static long [] city;
+	private static long [] bridge;
 	
 	public static void main(String [] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String str = br.readLine();
 		n = Integer.parseInt(str);
-		city = new int[n+1];
-		bridge = new int[n+1];
-		int sum = 0;
+		city = new long[n];
+		bridge = new long[n-1];
 
-		PriorityQueue <Point> q = new PriorityQueue<>(new Comparator<Point>() {
-			@Override
-			public int compare(Point p1, Point p2) {
-				return p1.x - p2.x;
-			}
-		});
 		
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		for(int i = 1;i<n;i++) {
-			bridge[i]= Integer.parseInt(st.nextToken());
+		for(int i = 0;i<n-1;i++) {
+			bridge[i]= Long.parseLong(st.nextToken());
 		}
-		
 		st = new StringTokenizer(br.readLine());
-		for(int i = 1;i<n;i++) {
-			q.offer(new Point(Integer.parseInt(st.nextToken()), i));
+		for(int i = 0;i<n;i++) {
+			city[i]= Long.parseLong(st.nextToken());
 		}
 		
-		while(!q.isEmpty()) {
-			Point temp = q.poll();
-			int min = temp.x;
-			int index = temp.y;
-			
-			if(bridge[index] == 0) continue;
-			
-			for(int i = index; i<n;i++) {
-				sum += bridge[i] * min;
-				bridge[i] = 0;
-			}
+		long sum = 0;
+		long min = city[0];
+		for(int i = 0;i<n-1;i++) {
+			if(city[i] < min)  min = city[i];
+			sum += (min *  bridge[i]);
 		}
 		
 		System.out.println(sum);
