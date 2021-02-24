@@ -1,0 +1,64 @@
+import java.io.*;
+import java.util.StringTokenizer;
+
+public class Main_b10973_이전수열 {
+
+	private static int n;
+	private static int [] input;
+	
+	public static void main(String [] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		n = Integer.parseInt(st.nextToken());
+		st = new StringTokenizer(br.readLine());
+		input = new int[n];
+		
+		for(int i = 0;i<n;i++) {
+			input[i] = Integer.parseInt(st.nextToken());
+		}
+		Boolean findcheck = false;
+		
+		//이전 순열 위치 찾기
+		int[] target = new int[2];
+		for(int i = n-1;i>0;i--) {
+			if(input[i] < input[i-1]) {
+				target[0] = input[i-1]; //값
+				target[1] = i-1;		//index
+				findcheck = true;
+				break;
+			}
+		}
+		if(!findcheck) {
+			System.out.println(-1);
+			return;
+		}
+		
+		//switch 할 위치 찾기  
+		int[] tmp = new int[2];
+		for(int i = n-1;i>=0;i--) {
+			if(target[0]-1 == input[i]) {
+				tmp[0] = input[i];
+				input[i] = target[0];
+				input[target[1]] = tmp[0];
+				tmp[1] = i;
+				break;
+			}
+		}
+		
+		int j = n-1;
+		int i = tmp[1];
+		while (i < j) {
+			int temp = input[i];
+			input[i] = input[j];
+			input[j] = temp;
+			i++;
+			j--;
+		}
+		
+		for(int k : input) {
+			System.out.print(k+" ");
+		}
+
+	}
+	
+}

@@ -1,0 +1,40 @@
+import java.io.*;
+import java.util.*;
+
+public class Main_b10948_모든순열{
+
+	private static int n;
+	private static int [] arr;
+	private static boolean[] selected;
+	
+	public static void main(String [] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		n = Integer.parseInt(st.nextToken());
+		selected = new boolean[n+1]; 
+		arr = new int[n+1];
+		permutation(1);
+		
+	}
+	static void permutation(int cur) {
+	
+		if(cur == n+1) {
+			for(int i = 1;i<=n;i++) {
+				System.out.print(arr[i]+" ");
+			}
+			System.out.println();
+			return;
+		}
+		
+		for(int i = 1;i<=n;i++) {
+			
+			if(selected[i]) continue;
+			
+			arr[cur] = i;  
+			selected[i] = true;
+			permutation(cur+1);
+			selected[i] = false;
+		}
+	}
+	
+}
