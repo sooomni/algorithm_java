@@ -1,7 +1,9 @@
 import java.io.*;
 import java.util.*;
 
-public class Main{
+//n까지의 합 : n번째에 들어갈 수 
+
+public class Main_b1292_쉽게푸는문제{
 
 	private static int n,m;
 	private static int [] arr;	
@@ -11,16 +13,17 @@ public class Main{
 		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();
 		int m = sc.nextInt();
-		arr = new int[500500];
+		arr = new int[1001];
 		
 		int index = 0;
-		for(int i = 1;i<=m;i++)
+		for(int i = 1;i<=45;i++)
 		{
 			int count = 0;
 			while(count < i) {
 				arr[index] = i;
 				index++;
 				count++;
+				if(index > 1000) break;
 			}
 		}
 		
@@ -31,3 +34,4 @@ public class Main{
 		System.out.println(sum);
 	}
 }
+
